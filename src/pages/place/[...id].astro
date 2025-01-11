@@ -4,6 +4,7 @@ import MainLayout from "../../layouts/MainLayout.astro";
 import { prisma } from "../../db";
 import Star from "../../components/Star.astro";
 import { Image } from "astro:assets";
+import Availability from "../../components/Availability.astro";
 
 export const getStaticPaths = (async () => {
   const places = await prisma.place.findMany();
@@ -33,6 +34,12 @@ const imageUrl = `/assets/images/${place.image}`;
         <Star rating={place.avg_rating}/>
         <span class="text-xs font-semibold mr-2 px-2.5 py-0.5 rounded bg-blue-200 text-blue-800 ml-3">{place.avg_rating}</span>
       </div>
+      <Availability server:defer placeId={id.toString()} >
+        <p slot="fallback" class="bg-gray-400 mt-5 text-center text-white font-bold rounded-xl p-2 animate-pulse">Espere...</p>
+
+      </Availability>
+      <!-- <p class="bg-blue-400 mt-5 text-center text-white font-bold rounded-xl p-2">Disponibles</p>
+      <p class="bg-red-400 mt-5 text-center text-white font-bold rounded-xl p-2">No disponible</p> -->
     </div>
     <div>
       <Image class="w-full h-96 object-cover rounded-xl" src={imageUrl} alt={place.title} width="800" height="800" />
