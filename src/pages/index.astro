@@ -1,17 +1,24 @@
 ---
 
 import MainLayout from '../layouts/MainLayout.astro';
-import PlaceCard from '../components/PlaceCard.astro'
+import PlaceCard from '../components/PlaceCard.astro';
+import { actions } from 'astro:actions';
+
+const {data:places ,error} = await Astro.callAction(actions.getPlaces,{});
+if (error) {
+	console.log(error);
+	
+}
 
 ---
 
 <MainLayout>
 	<h1 class="text-3xl font-extrabold text-cyan-600">Lugares</h1>
 	<div class="grid grid-cols-3 gap-4 mt-4">
-		<PlaceCard/>
-		<PlaceCard/>
-		<PlaceCard/>
-		<PlaceCard/>
-		<PlaceCard/>
+		{
+			places?.map((place)=>(
+				<PlaceCard place={place} />
+			))
+		}
 	</div>
 </MainLayout>

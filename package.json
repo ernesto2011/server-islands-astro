@@ -9,6 +9,7 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/node": "^9.0.0",
     "@astrojs/tailwind": "^5.1.4",
     "@prisma/client": "^6.2.1",
     "astro": "^5.1.3",
